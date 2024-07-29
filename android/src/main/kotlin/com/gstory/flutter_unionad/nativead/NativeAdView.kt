@@ -171,7 +171,7 @@ class NativeAdView(
 //
 //        })
 
-        mTTAd.setExpressInteractionListener(object : ExpressAdInteractionListener() {
+        mTTAdNative?.setExpressInteractionListener(object : ExpressAdInteractionListener() {
             //广告点击回调
             @Override
             fun onAdClicked(view: View?, type: Int) {
