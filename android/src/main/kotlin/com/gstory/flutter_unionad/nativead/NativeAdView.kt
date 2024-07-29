@@ -66,8 +66,8 @@ class NativeAdView(
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //请求广告数量为1到3条
             .setExpressViewAcceptedSize(
-                UIUtils.dip2px(context, viewWidth).toInt(),
-                UIUtils.dip2px(context, viewHeight).toInt()
+                UIUtils.px2dip(context, viewWidth).toInt(),
+                UIUtils.px2dip(context, viewHeight).toInt()
             )
             .build()
         val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
