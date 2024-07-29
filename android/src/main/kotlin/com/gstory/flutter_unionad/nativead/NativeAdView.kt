@@ -95,7 +95,7 @@ class NativeAdView(
 //            }
 //        })
 
-        mTTAdNative.loadBannerExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
+        mTTAdNative.loadNativeExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
             //请求失败回调
             override fun onError(code: Int, message: String?) {
                 Log.e(TAG, "信息流广告拉去失败 $code   $message")
