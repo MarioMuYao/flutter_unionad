@@ -190,7 +190,7 @@ class NativeAdView(
             //广告渲染成功回调
             override fun onRenderSuccess(view: View?, width: Float, height: Float) {
                 mContainer?.removeAllViews()
-                mContainer?.addView(mNativeAd?.adView)
+                mContainer?.addView(view)
                 var map: MutableMap<String, Any?> =
                         mutableMapOf("width" to width, "height" to height)
                 channel?.invokeMethod("onShow", map)
