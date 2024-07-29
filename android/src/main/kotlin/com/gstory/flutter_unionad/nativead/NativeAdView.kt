@@ -97,7 +97,6 @@ class NativeAdView(
 
         mTTAdNative.loadBannerExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
             //请求失败回调
-            @Override
             override fun onError(code: Int, message: String?) {
                 Log.e(TAG, "信息流广告拉去失败 $code   $message")
                 mContainer!!.removeAllViews()
@@ -105,7 +104,6 @@ class NativeAdView(
             }
 
             //请求成功回调
-            @Override
             override fun onNativeExpressAdLoad(ads: MutableList<TTNativeExpressAd>?) {
                 if (ads == null || ads.isEmpty()) {
                     Log.e(TAG, "未拉取到信息流广告")
@@ -173,28 +171,24 @@ class NativeAdView(
 
         mNativeAd?.setExpressInteractionListener(object : TTNativeExpressAd.ExpressAdInteractionListener {
             //广告点击回调
-            @Override
-            fun onAdClicked(view: View?, type: Int) {
+            override fun onAdClicked(view: View?, type: Int) {
                 Log.e(TAG, "广告被点击")
                 channel?.invokeMethod("onClick", null)
             }
 
             //广告展示回调
-            @Override
-            fun onAdShow(view: View?, type: Int) {
+            override fun onAdShow(view: View?, type: Int) {
                 Log.e(TAG, "广告展示")
             }
 
             //广告渲染失败回调
-            @Override
-            fun onRenderFail(view: View?, msg: String?, code: Int) {
+            override fun onRenderFail(view: View?, msg: String?, code: Int) {
                 Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
                 channel?.invokeMethod("onFail", msg)
             }
 
             //广告渲染成功回调
-            @Override
-            fun onRenderSuccess(view: View?, width: Float, height: Float) {
+            override fun onRenderSuccess(view: View?, width: Float, height: Float) {
                 mContainer?.removeAllViews()
                 mContainer?.addView(mNativeAd?.adView)
                 var map: MutableMap<String, Any?> =
