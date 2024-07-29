@@ -95,7 +95,7 @@ class NativeAdView(
 //            }
 //        })
 
-        mTTAdNative.loadBannerExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener() {
+        mTTAdNative.loadBannerExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
             //请求失败回调
             @Override
             override fun onError(code: Int, message: String?) {
@@ -171,7 +171,7 @@ class NativeAdView(
 //
 //        })
 
-        mNativeAd?.setExpressInteractionListener(object : ExpressAdInteractionListener {
+        mNativeAd?.setExpressInteractionListener(object : TTNativeExpressAd.ExpressAdInteractionListener {
             //广告点击回调
             @Override
             fun onAdClicked(view: View?, type: Int) {
