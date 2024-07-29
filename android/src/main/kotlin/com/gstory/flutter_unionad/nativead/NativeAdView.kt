@@ -69,6 +69,10 @@ class NativeAdView(
                 UIUtils.px2dip(context, viewWidth),
                 UIUtils.px2dip(context, viewHeight)
             )
+            .setImageAcceptedSize(
+                UIUtils.dip2px(context, viewWidth).toInt(),
+                UIUtils.dip2px(context, viewHeight).toInt()
+            )
             .build()
         val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
         //加载广告
