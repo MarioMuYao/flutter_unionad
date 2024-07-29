@@ -31,7 +31,7 @@ class NativeAdView(
 ) : PlatformView {
     private val TAG = "NativeExpressAdView"
     private var mContainer: FrameLayout? = null
-    private var mNativeAd: TTFeedAd? = null
+    private var mNativeAd: TTNativeExpressAd? = null
 
     //广告所需参数
     private val mCodeId: String?
