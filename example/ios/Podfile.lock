@@ -1,0 +1,32 @@
+PODS:
+  - Ads-CN-Beta/BUAdSDK (6.3.0.1)
+  - Ads-CN-Beta/CSJMediation (6.3.0.1):
+    - Ads-CN-Beta/BUAdSDK
+  - Flutter (1.0.0)
+  - flutter_unionad (0.0.1):
+    - Ads-CN-Beta/BUAdSDK (= 6.3.0.1)
+    - Ads-CN-Beta/CSJMediation (= 6.3.0.1)
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_unionad (from `.symlinks/plugins/flutter_unionad/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Ads-CN-Beta
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_unionad:
+    :path: ".symlinks/plugins/flutter_unionad/ios"
+
+SPEC CHECKSUMS:
+  Ads-CN-Beta: abc296ab020551ddbec4c36b9d13cd4c4d3a18bc
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_unionad: 7e16c15c21e7ae3f75c47530a38f66f48b06e6bf
+
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
+
+COCOAPODS: 1.15.2
