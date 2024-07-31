@@ -52,8 +52,13 @@ typedef OnCache = void Function();
 /// [rewardName]奖励名称
 /// [errorCode]错误码
 /// [message]错误信息
-typedef OnVerify = void Function(bool isVerify, int rewardAmount,
-    String rewardName, int errorCode, String message);
+typedef OnVerify = void Function(
+  bool isVerify,
+  int rewardAmount,
+  String rewardName,
+  int errorCode,
+  String message,
+);
 
 ///激励广告广告进阶奖励回调参数
 /// [isVerify] 是否成功
@@ -64,13 +69,14 @@ typedef OnVerify = void Function(bool isVerify, int rewardAmount,
 /// [error]错误信息
 /// [propose] 建议奖励数量
 typedef OnRewardArrived = void Function(
-    bool isVerify,
-    int rewardType,
-    int rewardAmount,
-    String rewardName,
-    int errorCode,
-    String error,
-    double propose);
+  bool isVerify,
+  int rewardType,
+  int rewardAmount,
+  String rewardName,
+  int errorCode,
+  String error,
+  double propose,
+);
 
 ///未确定
 typedef NotDetermined = void Function();
@@ -93,8 +99,12 @@ class FlutterUnionadBannerCallBack {
   OnDislike? onDislike;
   OnClick? onClick;
 
-  FlutterUnionadBannerCallBack(
-      {this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadBannerCallBack({
+    this.onShow,
+    this.onFail,
+    this.onDislike,
+    this.onClick,
+  });
 }
 
 ///
@@ -109,14 +119,15 @@ class FlutterUnionadDrawFeedCallBack {
   OnVideoPause? onVideoPause;
   OnVideoStop? onVideoStop;
 
-  FlutterUnionadDrawFeedCallBack(
-      {this.onShow,
-      this.onFail,
-      this.onClick,
-      this.onDislike,
-      this.onVideoPlay,
-      this.onVideoPause,
-      this.onVideoStop});
+  FlutterUnionadDrawFeedCallBack({
+    this.onShow,
+    this.onFail,
+    this.onClick,
+    this.onDislike,
+    this.onVideoPlay,
+    this.onVideoPause,
+    this.onVideoStop,
+  });
 }
 
 ///
@@ -128,8 +139,12 @@ class FlutterUnionadNativeCallBack {
   OnDislike? onDislike;
   OnClick? onClick;
 
-  FlutterUnionadNativeCallBack(
-      {this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadNativeCallBack({
+    this.onShow,
+    this.onFail,
+    this.onDislike,
+    this.onClick,
+  });
 }
 
 ///
@@ -142,14 +157,17 @@ class FlutterUnionadSplashCallBack {
   OnFinish? onFinish;
   OnSkip? onSkip;
   OnTimeOut? onTimeOut;
+  OnClose? onClose;
 
-  FlutterUnionadSplashCallBack(
-      {this.onShow,
-      this.onFail,
-      this.onClick,
-      this.onFinish,
-      this.onSkip,
-      this.onTimeOut});
+  FlutterUnionadSplashCallBack({
+    this.onShow,
+    this.onFail,
+    this.onClick,
+    this.onFinish,
+    this.onSkip,
+    this.onTimeOut,
+    this.onClose,
+  });
 }
 
 ///
@@ -163,13 +181,14 @@ class FlutterUnionadFullVideoCallBack {
   OnFail? onFail;
   OnFinish? onFinish;
 
-  FlutterUnionadFullVideoCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onSkip,
-      this.onClose,
-      this.onFail,
-      this.onFinish});
+  FlutterUnionadFullVideoCallBack({
+    this.onShow,
+    this.onClick,
+    this.onSkip,
+    this.onClose,
+    this.onFail,
+    this.onFinish,
+  });
 }
 
 ///
@@ -185,15 +204,16 @@ class FlutterUnionadNewInteractionCallBack {
   OnReady? onReady;
   OnUnReady? onUnReady;
 
-  FlutterUnionadNewInteractionCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onSkip,
-      this.onClose,
-      this.onFail,
-      this.onFinish,
-      this.onReady,
-      this.onUnReady});
+  FlutterUnionadNewInteractionCallBack({
+    this.onShow,
+    this.onClick,
+    this.onSkip,
+    this.onClose,
+    this.onFail,
+    this.onFinish,
+    this.onReady,
+    this.onUnReady,
+  });
 }
 
 ///
@@ -206,8 +226,13 @@ class FlutterUnionadInteractionCallBack {
   OnClose? onClose;
   OnFail? onFail;
 
-  FlutterUnionadInteractionCallBack(
-      {this.onShow, this.onClick, this.onDislike, this.onClose, this.onFail});
+  FlutterUnionadInteractionCallBack({
+    this.onShow,
+    this.onClick,
+    this.onDislike,
+    this.onClose,
+    this.onFail,
+  });
 }
 
 ///
@@ -225,17 +250,18 @@ class FlutterUnionadRewardAdCallBack {
   OnUnReady? onUnReady;
   OnCache? onCache;
 
-  FlutterUnionadRewardAdCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onClose,
-      this.onFail,
-      this.onVerify,
-      this.onRewardArrived,
-      this.onSkip,
-      this.onReady,
-      this.onUnReady,
-      this.onCache});
+  FlutterUnionadRewardAdCallBack({
+    this.onShow,
+    this.onClick,
+    this.onClose,
+    this.onFail,
+    this.onVerify,
+    this.onRewardArrived,
+    this.onSkip,
+    this.onReady,
+    this.onUnReady,
+    this.onCache,
+  });
 }
 
 ///

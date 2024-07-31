@@ -63,6 +63,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.container.removeFromSuperview()
         self.splashAd?.removeSplashView()
         self.splashAd = nil;
+        self.channel?.invokeMethod("onClose", arguments: "开屏广告关闭")
     }
     
     //自定义跳过按钮
