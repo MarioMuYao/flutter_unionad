@@ -131,12 +131,8 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
         break;
       //广告加载失败
       case FlutterUnionadMethod.onFail:
-        if (mounted) {
-          setState(() {
-            _isShowAd = false;
-          });
-        }
         widget.callBack?.onFail?.call(call.arguments);
+        _close();
         break;
       //开屏广告点击
       case FlutterUnionadMethod.onClick:
@@ -152,22 +148,22 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
         break;
       //开屏广告加载超时
       case FlutterUnionadMethod.onTimeOut:
-        if (mounted) {
-          setState(() {
-            _isShowAd = false;
-          });
-        }
         widget.callBack?.onTimeOut?.call();
+        _close();
         break;
       //开屏广告关闭
       case FlutterUnionadMethod.onClose:
-        if (mounted) {
-          setState(() {
-            _isShowAd = false;
-          });
-        }
-        widget.callBack?.onClose?.call();
+        _close();
         break;
     }
+  }
+
+  void _close() {
+    if (mounted) {
+      setState(() {
+        _isShowAd = false;
+      });
+    }
+    widget.callBack?.onClose?.call();
   }
 }

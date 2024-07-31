@@ -115,11 +115,12 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
             override fun onSplashAdClose(p0: CSJSplashAd?, closeType: Int) {
                 Log.e(TAG, "开屏广告结束$closeType")
                 //closeType 1跳过 2倒计时结束
-                if(closeType == 1){
+                if (closeType == 1) {
                     channel?.invokeMethod("onSkip","开屏广告跳过")
-                }else {
+                } else {
                     channel?.invokeMethod("onFinish", "开屏广告倒计时结束")
                 }
+                channel?.invokeMethod("onClose", "开屏广告关闭")
             }
         })
         mContainer?.removeAllViews()
