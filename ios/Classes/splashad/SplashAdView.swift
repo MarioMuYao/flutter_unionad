@@ -131,19 +131,17 @@ extension SplashAdView : BUSplashAdDelegate{
     
     public func splashAdDidClose(_ splashAd: BUSplashAd, closeType: BUSplashAdCloseType) {
         LogUtil.logInstance.printLog(message: "开屏广告关闭回调")
-        if(closeType == BUSplashAdCloseType.clickSkip){
+        if (closeType == BUSplashAdCloseType.clickSkip){
             self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
-        }else{
+        } else {
             self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
         }
-        self.disposeView()
     }
     
     //SDK渲染开屏广告关闭回调，当用户点击广告时会直接触发此回调，建议在此回调方法中直接进行广告对象的移除操作
     public func splashAdViewControllerDidClose(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "SDK渲染开屏广告关闭回调，当用户点击广告时会直接触发此回调")
-//        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
-//        self.disposeView()
+        self.disposeView()
     }
     
     //此回调在广告跳转到其他控制器时，该控制器被关闭时调用。interactionType：此参数可区分是打开的appstore/网页/视频广告详情页面
