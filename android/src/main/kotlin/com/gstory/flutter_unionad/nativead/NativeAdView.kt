@@ -182,7 +182,7 @@ class NativeAdView(
                 mContainer?.removeAllViews()
                 mContainer?.addView(view)
                 var map: MutableMap<String, Any?> =
-                        mutableMapOf("width" to width, "height" to height, "requestId" to mNativeAd?.getMediaExtraInfo().get("request_id"))
+                        mutableMapOf("width" to width, "height" to height, "requestId" to mNativeAd?.getMediaExtraInfo().get("request_id") ?: "")
                 channel?.invokeMethod("onShow", map)
             }
         })
