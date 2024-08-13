@@ -113,11 +113,11 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
+    debugPrint('nativeAD call: ${call.arguments}');
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
-        debugPrint('nativeAD show: $map');
         if (mounted) {
           setState(() {
             _isShowAd = true;
