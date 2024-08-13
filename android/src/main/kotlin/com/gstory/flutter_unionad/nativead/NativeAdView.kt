@@ -61,13 +61,18 @@ class NativeAdView(
      * 加载信息流广告
      */
     private fun loadNativeAd() {
+        mContainer!!.removeAllViews()
+
         val adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //请求广告数量为1到3条
             .setExpressViewAcceptedSize(viewWidth, viewHeight)
             .build()
-        val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
+
+        val mTTAdNative = TTAdManagerHolder.get().createAdNative(activity)
+
+        TTAdManagerHolder.get().requestPermissionIfNecessary(activity)
         //加载广告
 //        mTTAdNative.loadFeedAd(adSlot, object : TTAdNative.FeedAdListener {
 //            override fun onError(code: Int, message: String?) {
@@ -115,11 +120,8 @@ class NativeAdView(
      */
     private fun showAd() {
         bindDislike()
-        val manager = mNativeAd!!.mediationManager
-        if (manager != null) {
-            bindAdListener()
-            mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
-        }
+        bindAdListener()
+        mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
     }
 
     /**
@@ -180,7 +182,7 @@ class NativeAdView(
                 mContainer?.removeAllViews()
                 mContainer?.addView(view)
                 var map: MutableMap<String, Any?> =
-                        mutableMapOf("width" to width, "height" to height)
+                        mutableMapOf("width" to width, "height" to height, "requestId" to mNativeAd.getMediaExtraInfo().get("request_id"))
                 channel?.invokeMethod("onShow", map)
             }
         })

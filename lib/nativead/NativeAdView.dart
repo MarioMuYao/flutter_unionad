@@ -117,6 +117,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
       //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
+        debugPrint('nativeAD show: $map');
         if (mounted) {
           setState(() {
             _isShowAd = true;

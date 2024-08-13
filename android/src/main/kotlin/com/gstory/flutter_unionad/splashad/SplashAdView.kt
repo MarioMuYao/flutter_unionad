@@ -62,7 +62,7 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
      * 加载开屏广告
      */
     private fun loadSplashAd() {
-        val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
+        val mTTAdNative = TTAdManagerHolder.get().createAdNative(activity)
         var adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
