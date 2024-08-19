@@ -86,6 +86,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdViewRenderSuccess(_ nativeExpressAdView: BUNativeExpressAdView) {
         let map : NSDictionary = ["width":nativeExpressAdView.frame.size.width,
                                   "height":nativeExpressAdView.frame.size.height]
+        self.channel?.invokeMethod("adInfo", arguments: nativeExpressAdView.mediaExt)
         self.channel?.invokeMethod("onShow", arguments: map)
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderSuccess")
     }

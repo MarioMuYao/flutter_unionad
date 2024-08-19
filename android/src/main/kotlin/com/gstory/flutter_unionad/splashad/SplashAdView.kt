@@ -67,7 +67,8 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             //不区分渲染方式，要求开发者同时设置setImageAcceptedSize（单位：px）和setExpressViewAcceptedSize（单位：dp ）接口，不同时设置可能会导致展示异常。
-            .setImageAcceptedSize(UIUtils.dip2px(context,viewWidth).toInt(), UIUtils.dip2px(context,viewHeight).toInt())
+            .setExpressViewAcceptedSize(viewWidth, viewHeight)
+            .setImageAcceptedSize(UIUtils.dip2px(context, viewWidth).toInt(), UIUtils.dip2px(context, viewHeight).toInt())
             .build()
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
         mTTAdNative.loadSplashAd(adSlot,object : TTAdNative.CSJSplashAdListener{
