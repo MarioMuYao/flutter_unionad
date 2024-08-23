@@ -49,19 +49,16 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         }else{
             size = CGSize(width: CGFloat(self.viewWidth!), height: CGFloat(self.viewHeight!))
         }
-        let splash = BUSplashAd.init(slotID: self.mCodeId!, adSize:size)
-        splash.tolerateTimeout = self.timeout ?? 3.0
-        splash.hideSkipButton = self.hideSkip
-        splash.supportCardView = false
-        splash.supportZoomOutView = false
-        splash.delegate = self
-        self.splashAd = splash;
-        self.splashAd?.loadData()
+        let slot = BUAdSlot.init()
+        slot.id = self.mCodeId!
+        self.splashAd = BUSplashAd.init(slot: slot, adSize: size)
+        self.splashAd?.delegate = self
+        self.splashAd?.loadData()    
     }
     
     private func disposeView() {
         self.container.removeFromSuperview()
-        self.splashAd?.removeSplashView()
+        self.splashAd?.mediation?.destoryAd()
         self.splashAd = nil;
         self.channel?.invokeMethod("onClose", arguments: "开屏广告关闭")
     }
@@ -93,7 +90,7 @@ extension SplashAdView : BUSplashAdDelegate{
     //SDK渲染开屏广告加载成功回调
     public func splashAdLoadSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告加载成功回调")
-        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
+//        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
     }
     
     //返回的错误码(error)表示广告加载失败的原因，所有错误码详情请见链接Link
@@ -109,7 +106,7 @@ extension SplashAdView : BUSplashAdDelegate{
         if(self.hideSkip){
             self.showSkipButton()
         }
-        self.container.addSubview(self.splashAd!.splashView!)
+        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
         self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
     }
     
@@ -132,17 +129,19 @@ extension SplashAdView : BUSplashAdDelegate{
     
     public func splashAdDidClose(_ splashAd: BUSplashAd, closeType: BUSplashAdCloseType) {
         LogUtil.logInstance.printLog(message: "开屏广告关闭回调")
-        if (closeType == BUSplashAdCloseType.clickSkip){
+        if (closeType == BUSplashAdCloseType.clickSkip) {
             self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
         } else {
             self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
         }
+        self.disposeView()
     }
     
     //SDK渲染开屏广告关闭回调，当用户点击广告时会直接触发此回调，建议在此回调方法中直接进行广告对象的移除操作
     public func splashAdViewControllerDidClose(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "SDK渲染开屏广告关闭回调，当用户点击广告时会直接触发此回调")
-        self.disposeView()
+//        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
+//        self.disposeView()
     }
     
     //此回调在广告跳转到其他控制器时，该控制器被关闭时调用。interactionType：此参数可区分是打开的appstore/网页/视频广告详情页面

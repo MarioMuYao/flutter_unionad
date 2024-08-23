@@ -117,33 +117,39 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
-        Map map = call.arguments;
-        if (mounted) {
-          setState(() {
-            _isShowAd = true;
-            _width = (map["width"]).toDouble();
-            _height = (map["height"]).toDouble();
-          });
+        {
+          Map map = call.arguments;
+          if (mounted) {
+            setState(() {
+              _isShowAd = true;
+              _width = (map["width"]).toDouble();
+              _height = (map["height"]).toDouble();
+            });
+          }
+          widget.callBack?.onShow!();
         }
-        widget.callBack?.onShow!();
         break;
       //广告加载失败
       case FlutterUnionadMethod.onFail:
-        if (mounted) {
-          setState(() {
-            _isShowAd = false;
-          });
+        {
+          if (mounted) {
+            setState(() {
+              _isShowAd = false;
+            });
+          }
+          widget.callBack?.onFail!(call.arguments);
         }
-        widget.callBack?.onFail!(call.arguments);
         break;
       //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
-        if (mounted) {
-          setState(() {
-            _isShowAd = false;
-          });
+        {
+          if (mounted) {
+            setState(() {
+              _isShowAd = false;
+            });
+          }
+          widget.callBack?.onDislike!(call.arguments);
         }
-        widget.callBack?.onDislike!(call.arguments);
         break;
       //点击
       case FlutterUnionadMethod.onClick:

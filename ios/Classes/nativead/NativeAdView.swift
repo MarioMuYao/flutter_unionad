@@ -96,12 +96,6 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
         LogUtil.logInstance.printLog(message: "nativeExpressAdView")
         self.channel?.invokeMethod("onDislike", arguments: filterWords[0].name)
     }
-
-    public func nativeExpressAdViewDidRemoved(_ nativeExpressAdView: BUNativeExpressAdView) {
-        self.disposeView()
-        LogUtil.logInstance.printLog(message: "nativeExpressAdView")
-        self.channel?.invokeMethod("onDislike", arguments: "主动关闭掉广告")
-    }
     
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, stateDidChanged playerState: BUPlayerPlayState) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdView")

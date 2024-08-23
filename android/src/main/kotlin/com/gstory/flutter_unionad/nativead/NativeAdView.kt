@@ -61,47 +61,27 @@ class NativeAdView(
      * 加载信息流广告
      */
     private fun loadNativeAd() {
-        mContainer!!.removeAllViews()
-
         val adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //请求广告数量为1到3条
-            .setExpressViewAcceptedSize(viewWidth, viewHeight)
+            .setImageAcceptedSize(viewWidth, viewHeight)
+            .setMediationAdSlot(
+                MediationAdSlot.Builder()
+                    .build()
+            )
             .build()
 
-        val mTTAdNative = TTAdManagerHolder.get().createAdNative(activity)
-
         TTAdManagerHolder.get().requestPermissionIfNecessary(activity)
+        val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
         //加载广告
-//        mTTAdNative.loadFeedAd(adSlot, object : TTAdNative.FeedAdListener {
-//            override fun onError(code: Int, message: String?) {
-//                Log.e(TAG, "信息流广告拉去失败 $code   $message")
-//                mContainer!!.removeAllViews()
-//                channel?.invokeMethod("onFail", message)
-//            }
-//
-//            override fun onFeedAdLoad(ads: MutableList<TTFeedAd>?) {
-//                if (ads == null || ads.isEmpty()) {
-//                    Log.e(TAG, "未拉取到信息流广告")
-//                    return
-//                }
-//                mNativeAd = ads[0]
-//                queryEcpm()
-//                //展示第一条广告
-//                showAd()
-//            }
-//        })
-
         mTTAdNative.loadNativeExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
-            //请求失败回调
             override fun onError(code: Int, message: String?) {
                 Log.e(TAG, "信息流广告拉去失败 $code   $message")
                 mContainer!!.removeAllViews()
                 channel?.invokeMethod("onFail", message)
             }
 
-            //请求成功回调
             override fun onNativeExpressAdLoad(ads: MutableList<TTNativeExpressAd>?) {
                 if (ads == null || ads.isEmpty()) {
                     Log.e(TAG, "未拉取到信息流广告")
@@ -109,7 +89,7 @@ class NativeAdView(
                 }
                 mNativeAd = ads[0]
                 channel?.invokeMethod("adInfo", mNativeAd!!.getMediaExtraInfo())
-                queryEcpm()
+                //queryEcpm()
                 //展示第一条广告
                 showAd()
             }
@@ -121,64 +101,23 @@ class NativeAdView(
      */
     private fun showAd() {
         bindDislike()
-        bindAdListener()
-        mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
+        val manager = mNativeAd!!.mediationManager
+        if (manager != null) {
+            if (manager.isExpress) { // --- 模板feed流广告
+                bindAdListener()
+                mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
+            } else {
+                Log.e(TAG, "自渲染信息流广告 暂不支持")
+                channel?.invokeMethod("onFail", "自渲染信息流广告 暂不支持")
+            }
+        }
     }
 
     /**
      * 设置广告加载事件
      */
     private fun bindAdListener() {
-//        mNativeAd?.setExpressRenderListener(object :
-//            MediationExpressRenderListener {
-//            override fun onRenderSuccess(
-//                p0: View?,
-//                p1: Float,
-//                p2: Float,
-//                p3: Boolean
-//            ) {
-//                mContainer?.removeAllViews()
-//                mContainer?.addView(mNativeAd?.adView)
-//                var map: MutableMap<String, Any?> =
-//                    mutableMapOf("width" to p1, "height" to p2)
-//                channel?.invokeMethod("onShow", map)
-//            }
-//
-//            override fun onRenderFail(p0: View?, p1: String?, p2: Int) {
-//                Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
-//                channel?.invokeMethod("onFail", p1)
-//            }
-//
-//            override fun onAdClick() {
-//                Log.e(TAG, "广告被点击")
-//                channel?.invokeMethod("onClick", null)
-//            }
-//
-//            override fun onAdShow() {
-//                Log.e(TAG, "广告展示")
-//            }
-//
-//        })
-
-        mNativeAd?.setExpressInteractionListener(object : TTNativeExpressAd.ExpressAdInteractionListener {
-            //广告点击回调
-            override fun onAdClicked(view: View?, type: Int) {
-                Log.e(TAG, "广告被点击")
-                channel?.invokeMethod("onClick", null)
-            }
-
-            //广告展示回调
-            override fun onAdShow(view: View?, type: Int) {
-                Log.e(TAG, "广告展示")
-            }
-
-            //广告渲染失败回调
-            override fun onRenderFail(view: View?, msg: String?, code: Int) {
-                Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
-                channel?.invokeMethod("onFail", msg)
-            }
-
-            //广告渲染成功回调
+        mNativeAd?.setExpressInteractionListener(object : TTNativeExpressAd.ExpressAdInteractionListener {            
             override fun onRenderSuccess(view: View?, width: Float, height: Float) {
                 mContainer?.removeAllViews()
                 mContainer?.addView(view)
@@ -186,6 +125,22 @@ class NativeAdView(
                         mutableMapOf("width" to width, "height" to height)
                 channel?.invokeMethod("onShow", map)
             }
+
+
+            override fun onRenderFail(view: View?, msg: String?, code: Int) {
+                Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
+                channel?.invokeMethod("onFail", msg)
+            }
+
+            override fun onAdClicked(view: View?, type: Int) {
+                Log.e(TAG, "广告被点击")
+                channel?.invokeMethod("onClick", null)
+            }
+
+            override fun onAdShow(view: View?, type: Int) {
+                Log.e(TAG, "广告展示")
+            }
+
         })
     }
 

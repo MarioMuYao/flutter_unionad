@@ -62,7 +62,7 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
      * 加载开屏广告
      */
     private fun loadSplashAd() {
-        val mTTAdNative = TTAdManagerHolder.get().createAdNative(activity)
+        val mTTAdNative = TTAdSdk.getAdManager().createAdNative(activity)
         var adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
@@ -121,7 +121,6 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
                 } else {
                     channel?.invokeMethod("onFinish", "开屏广告倒计时结束")
                 }
-                channel?.invokeMethod("onClose", "开屏广告关闭")
             }
         })
         mContainer?.removeAllViews()
@@ -158,5 +157,6 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
     override fun dispose() {
         mContainer?.removeAllViews()
         mSplashAd?.mediationManager?.destroy()
+        channel?.invokeMethod("onClose", "开屏广告关闭")
     }
 }
