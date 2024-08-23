@@ -108,7 +108,6 @@ class NativeAdView(
                     return
                 }
                 mNativeAd = ads[0]
-                channel?.invokeMethod("adInfo", mNativeAd!!.getMediaExtraInfo())
                 queryEcpm()
                 //展示第一条广告
                 showAd()
@@ -184,6 +183,7 @@ class NativeAdView(
                 mContainer?.addView(view)
                 var map: MutableMap<String, Any?> =
                         mutableMapOf("width" to width, "height" to height)
+                channel?.invokeMethod("adInfo", view?.getMediaExtraInfo())
                 channel?.invokeMethod("onShow", map)
             }
         })
