@@ -67,10 +67,6 @@ class NativeAdView(
             .setAdCount(1) //请求广告数量为1到3条
             .setExpressViewAcceptedSize(viewWidth,viewHeight)
             .setImageAcceptedSize(UIUtils.dip2px(context, viewWidth).toInt(), UIUtils.dip2px(context, viewHeight).toInt())
-            .setMediationAdSlot(
-                MediationAdSlot.Builder()
-                    .build()
-            )
             .build()
 
         TTAdManagerHolder.get().requestPermissionIfNecessary(activity)
@@ -102,16 +98,18 @@ class NativeAdView(
      */
     private fun showAd() {
         bindDislike()
-        val manager = mNativeAd!!.mediationManager
-        if (manager != null) {
-            if (manager.isExpress) { // --- 模板feed流广告
-                bindAdListener()
-                mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
-            } else {
-                Log.e(TAG, "自渲染信息流广告 暂不支持")
-                channel?.invokeMethod("onFail", "自渲染信息流广告 暂不支持")
-            }
-        }
+        bindAdListener()
+        mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
+        //val manager = mNativeAd!!.mediationManager
+        //if (manager != null) {
+            //if (manager.isExpress) { // --- 模板feed流广告
+                //bindAdListener()
+                //mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
+            //} else {
+                //Log.e(TAG, "自渲染信息流广告 暂不支持")
+                //channel?.invokeMethod("onFail", "自渲染信息流广告 暂不支持")
+            //}
+        //}
     }
 
     /**
