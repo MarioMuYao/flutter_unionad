@@ -65,7 +65,8 @@ class NativeAdView(
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //请求广告数量为1到3条
-            .setImageAcceptedSize(viewWidth, viewHeight)
+            .setExpressViewAcceptedSize(viewWidth,viewHeight)
+            .setImageAcceptedSize(UIUtils.dip2px(context, viewWidth).toInt(), UIUtils.dip2px(context, viewHeight).toInt())
             .setMediationAdSlot(
                 MediationAdSlot.Builder()
                     .build()
