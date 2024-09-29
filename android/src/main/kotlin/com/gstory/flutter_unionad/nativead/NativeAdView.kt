@@ -119,6 +119,7 @@ class NativeAdView(
             override fun onRenderSuccess(view: View?, width: Float, height: Float) {
                 mContainer?.removeAllViews()
                 mContainer?.addView(view)
+                Log.e(TAG, "ExpressView width:" + view?.layoutParams.width + " height:" + view?.layoutParams.height)
                 var map: MutableMap<String, Any?> =
                         mutableMapOf("width" to width, "height" to height)
                 channel?.invokeMethod("onShow", map)
