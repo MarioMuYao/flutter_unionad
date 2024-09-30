@@ -61,6 +61,7 @@ class NativeAdView(
      * 加载信息流广告
      */
     private fun loadNativeAd() {
+        Log.e(TAG, "ad load width:" + viewWidth + " height:" + viewHeight)
         val adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
