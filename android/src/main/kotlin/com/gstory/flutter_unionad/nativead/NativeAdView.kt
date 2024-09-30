@@ -67,6 +67,7 @@ class NativeAdView(
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //请求广告数量为1到3条
             .setExpressViewAcceptedSize(viewWidth, viewHeight)
+            .setImageAcceptedSize(UIUtils.dip2px(context, viewWidth).toInt(), UIUtils.dip2px(context, viewHeight).toInt())
             .build()
 
         TTAdManagerHolder.get().requestPermissionIfNecessary(activity)
