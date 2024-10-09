@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:flutter_unionad_example/banner_page.dart';
 import 'package:flutter_unionad_example/drawfeed_page.dart';
@@ -49,7 +45,7 @@ class _IndexPageState extends State<IndexPage> {
     _initRegister();
     _adViewStream = FlutterUnionadStream.initAdStream(
       flutterUnionadFullVideoCallBack: FlutterUnionadFullVideoCallBack(
-        onShow: () {
+        onShow: (Size? size) {
           print("全屏广告显示");
         },
         onSkip: () {
@@ -70,7 +66,7 @@ class _IndexPageState extends State<IndexPage> {
       ),
       //插屏广告回调
       flutterUnionadInteractionCallBack: FlutterUnionadInteractionCallBack(
-        onShow: () {
+        onShow: (Size? size) {
           print("插屏广告展示");
         },
         onClose: () {
@@ -87,9 +83,8 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
       // 新模板渲染插屏广告回调
-      flutterUnionadNewInteractionCallBack:
-          FlutterUnionadNewInteractionCallBack(
-        onShow: () {
+      flutterUnionadNewInteractionCallBack: FlutterUnionadNewInteractionCallBack(
+        onShow: (Size? size) {
           print("新模板渲染插屏广告显示");
         },
         onSkip: () {
@@ -117,8 +112,7 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
       //激励广告
-      flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
-          onShow: () {
+      flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(onShow: (Size? size) {
         print("激励广告显示");
       }, onClick: () {
         print("激励广告点击");
@@ -136,12 +130,9 @@ class _IndexPageState extends State<IndexPage> {
       }, onUnReady: () {
         print("激励广告预加载未准备就绪");
       }, onVerify: (rewardVerify, rewardAmount, rewardName, errorCode, error) {
-        print(
-            "激励广告奖励  验证结果=$rewardVerify 奖励=$rewardAmount  奖励名称$rewardName 错误码=$errorCode 错误$error");
-      }, onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName,
-              errorCode, error, propose) {
-        print(
-            "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
+        print("激励广告奖励  验证结果=$rewardVerify 奖励=$rewardAmount  奖励名称$rewardName 错误码=$errorCode 错误$error");
+      }, onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName, errorCode, error, propose) {
+        print("阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
             "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
       }),
     );
@@ -286,9 +277,8 @@ class _IndexPageState extends State<IndexPage> {
               textColor: Colors.white,
               child: new Text('切换主题'),
               onPressed: () async {
-                _themeStatus = _themeStatus == FlutterUnionAdTheme.DAY
-                    ? FlutterUnionAdTheme.NIGHT
-                    : FlutterUnionAdTheme.DAY;
+                _themeStatus =
+                    _themeStatus == FlutterUnionAdTheme.DAY ? FlutterUnionAdTheme.NIGHT : FlutterUnionAdTheme.DAY;
                 _initRegister();
               },
             ),

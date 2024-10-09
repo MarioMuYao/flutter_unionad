@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
             //超时时间
             timeout: 3000,
             callBack: FlutterUnionadSplashCallBack(
-              onShow: () {
+              onShow: (Size? size) {
                 print("开屏广告显示");
                 setState(() => _offstage = false);
               },

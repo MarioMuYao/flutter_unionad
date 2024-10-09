@@ -48,7 +48,12 @@ class NativeAdView(
         var height = params["height"] as Double
         viewWidth = width.toFloat()
         viewHeight = height.toFloat()
-        mContainer = FrameLayout(context)
+        mContainer = FrameLayout(context).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
         channel = MethodChannel(messenger, FlutterunionadViewConfig.nativeAdView + "_" + id)
         loadNativeAd()
     }

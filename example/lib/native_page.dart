@@ -40,7 +40,7 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
               //期望view高度 dp 必填
               height: 0,
               callBack: FlutterUnionadNativeCallBack(
-                onShow: () {
+                onShow: (Size? size) {
                   print("信息流广告显示");
                 },
                 onFail: (error) {
@@ -62,7 +62,7 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
               expressViewWidth: 300,
               expressViewHeight: 200,
               callBack: FlutterUnionadNativeCallBack(
-                onShow: () {
+                onShow: (Size? size) {
                   print("信息流广告显示");
                 },
                 onFail: (error) {

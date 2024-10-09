@@ -127,7 +127,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
-        widget.callBack?.onShow?.call();
+        widget.callBack?.onShow?.call(null);
         break;
       //广告加载失败
       case FlutterUnionadMethod.onFail:

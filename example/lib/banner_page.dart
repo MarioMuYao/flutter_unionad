@@ -40,7 +40,7 @@ class _BannerPageState extends State<BannerPage> {
               //期望view高度 dp 必填
               height: 120.5,
               //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(onShow: () {
+              callBack: FlutterUnionadBannerCallBack(onShow: (Size? size) {
                 print("banner广告加载完成");
               }, onDislike: (message) {
                 print("banner不感兴趣 $message");
@@ -56,7 +56,7 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 600,
               expressViewHeight: 200,
               //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(onShow: () {
+              callBack: FlutterUnionadBannerCallBack(onShow: (Size? size) {
                 print("banner广告加载完成");
               }, onDislike: (message) {
                 print("banner不感兴趣 $message");

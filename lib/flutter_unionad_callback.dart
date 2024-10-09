@@ -5,7 +5,7 @@ part of 'flutter_unionad.dart';
 /// @Description: dart类作用描述
 
 ///显示
-typedef OnShow = void Function();
+typedef OnShow = void Function(Size? size);
 
 ///失败
 typedef OnFail = void Function(dynamic message);

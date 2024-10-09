@@ -9,27 +9,23 @@ import 'flutter_unionad_code.dart';
 /// @CreateDate: 2021/5/25 7:45 下午
 /// @Description: 广告结果监听
 
-const EventChannel adEventEvent =
-    EventChannel("com.gstory.flutter_unionad/adevent");
+const EventChannel adEventEvent = EventChannel("com.gstory.flutter_unionad/adevent");
 
 class FlutterUnionadStream {
   ///注册stream监听原生返回的信息
   static StreamSubscription initAdStream(
       {FlutterUnionadFullVideoCallBack? flutterUnionadFullVideoCallBack,
       FlutterUnionadInteractionCallBack? flutterUnionadInteractionCallBack,
-      FlutterUnionadNewInteractionCallBack?
-          flutterUnionadNewInteractionCallBack,
+      FlutterUnionadNewInteractionCallBack? flutterUnionadNewInteractionCallBack,
       FlutterUnionadRewardAdCallBack? flutterUnionadRewardAdCallBack}) {
-    StreamSubscription _adStream =
-        adEventEvent.receiveBroadcastStream().listen((data) {
+    StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
       switch (data[FlutterUnionadType.adType]) {
-
         ///全屏广告
         case FlutterUnionadType.fullVideoAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
               if (flutterUnionadFullVideoCallBack?.onShow != null) {
-                flutterUnionadFullVideoCallBack?.onShow!();
+                flutterUnionadFullVideoCallBack?.onShow!(null);
               }
               break;
             case FlutterUnionadMethod.onSkip:
@@ -65,7 +61,7 @@ class FlutterUnionadStream {
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
               if (flutterUnionadInteractionCallBack?.onShow != null) {
-                flutterUnionadInteractionCallBack?.onShow!();
+                flutterUnionadInteractionCallBack?.onShow!(null);
               }
               break;
             case FlutterUnionadMethod.onDislike:
@@ -96,7 +92,7 @@ class FlutterUnionadStream {
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
               if (flutterUnionadNewInteractionCallBack?.onShow != null) {
-                flutterUnionadNewInteractionCallBack?.onShow!();
+                flutterUnionadNewInteractionCallBack?.onShow!(null);
               }
               break;
             case FlutterUnionadMethod.onClose:
@@ -142,7 +138,7 @@ class FlutterUnionadStream {
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
               if (flutterUnionadRewardAdCallBack?.onShow != null) {
-                flutterUnionadRewardAdCallBack?.onShow!();
+                flutterUnionadRewardAdCallBack?.onShow!(null);
               }
               break;
             case FlutterUnionadMethod.onSkip:
@@ -167,12 +163,8 @@ class FlutterUnionadStream {
               break;
             case FlutterUnionadMethod.onVerify:
               if (flutterUnionadRewardAdCallBack?.onVerify != null) {
-                flutterUnionadRewardAdCallBack?.onVerify!(
-                    data["rewardVerify"],
-                    data["rewardAmount"] ?? 0,
-                    data["rewardName"] ?? "",
-                    data["errorCode"] ?? 0,
-                    data["error"] ?? "");
+                flutterUnionadRewardAdCallBack?.onVerify!(data["rewardVerify"], data["rewardAmount"] ?? 0,
+                    data["rewardName"] ?? "", data["errorCode"] ?? 0, data["error"] ?? "");
               }
               break;
             case FlutterUnionadMethod.onRewardArrived:

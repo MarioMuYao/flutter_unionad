@@ -119,14 +119,16 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
       case FlutterUnionadMethod.onShow:
         {
           Map map = call.arguments;
+          double width = (map["width"]).toDouble();
+          double height = (map["height"]).toDouble();
           if (mounted) {
             setState(() {
               _isShowAd = true;
-              _width = (map["width"]).toDouble();
-              _height = (map["height"]).toDouble();
+              _width = width;
+              _height = height;
             });
           }
-          widget.callBack?.onShow!();
+          widget.callBack?.onShow!(Size(width, height));
         }
         break;
       //广告加载失败

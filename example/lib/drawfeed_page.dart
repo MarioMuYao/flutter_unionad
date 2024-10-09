@@ -35,7 +35,7 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                 // 期望view 宽度 dp 必填
                 height: 800.5,
                 callBack: FlutterUnionadDrawFeedCallBack(
-                  onShow: () {
+                  onShow: (Size? size) {
                     print("draw广告显示");
                   },
                   onFail: (error) {
@@ -76,7 +76,7 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                 adLoadType: FlutterUnionadLoadType.LOAD,
                 //期望view高度 dp 必填
                 callBack: FlutterUnionadDrawFeedCallBack(
-                  onShow: () {
+                  onShow: (Size? size) {
                     print("draw广告显示");
                   },
                   onFail: (error) {
