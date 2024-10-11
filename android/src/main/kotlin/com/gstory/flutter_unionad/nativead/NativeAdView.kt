@@ -126,8 +126,21 @@ class NativeAdView(
             override fun onRenderSuccess(view: View?, width: Float, height: Float) {
                 mContainer?.removeAllViews()
                 mContainer?.addView(view)
+
+                view?.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                               View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+                var width1: Float = view?.measuredWidth?.toFloat() ?: 0f
+                var height1: Float = view?.measuredHeight?.toFloat() ?: 0f
+                if (viewWidth != 0f && width1 != 0f && height1 != 0f) {
+                    height1 = height1 * viewWidth / width1
+                    width1 = viewWidth
+                } else {
+                    width1 = width
+                    height1 = height
+                }
+
                 var map: MutableMap<String, Any?> =
-                        mutableMapOf("width" to width, "height" to height)
+                        mutableMapOf("width" to width1, "height" to height1)
                 channel?.invokeMethod("onShow", map)
             }
 
